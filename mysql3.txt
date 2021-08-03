@@ -1,0 +1,264 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.26 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create table passenger(passenger_id int primary key,passenger_name varchar(20),payment_mode varchar(20),my_date date);
+ERROR 1046 (3D000): No database selected
+mysql> create database palak
+    -> create database palak;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create database palak' at line 2
+mysql> create database palak;
+Query OK, 1 row affected (2.64 sec)
+
+mysql> use palak
+Database changed
+mysql> create table passenger(passenger_id int primary key,passenger_name varchar(20),payment_mode varchar(20),my_date date);
+Query OK, 0 rows affected (2.39 sec)
+
+mysql> select * from passenger;
+Empty set (0.19 sec)
+
+mysql> desc passenger;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| passenger_id   | int         | NO   | PRI | NULL    |       |
+| passenger_name | varchar(20) | YES  |     | NULL    |       |
+| payment_mode   | varchar(20) | YES  |     | NULL    |       |
+| my_date        | date        | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.35 sec)
+
+mysql> insert into passenger(1,'suman','wallet','2000-10-13');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,'suman','wallet','2000-10-13')' at line 1
+mysql> insert into passenger values(1,'suman','wallet','2000-10-13');
+Query OK, 1 row affected (0.21 sec)
+
+mysql> insert into passenger values(2,'vrushika','netbanking','2000-10-18');
+Query OK, 1 row affected (0.36 sec)
+
+mysql> insert into passenger values(3,'vraj','creditcard','2000-10-27');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into passenger values(4,'vrunda','creditcard','2000-10-30');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into passenger values(5,'sahil','creditcard','2000-10-01');
+Query OK, 1 row affected (0.18 sec)
+
+mysql> select * from passenger;
++--------------+----------------+--------------+------------+
+| passenger_id | passenger_name | payment_mode | my_date    |
++--------------+----------------+--------------+------------+
+|            1 | suman          | wallet       | 2000-10-13 |
+|            2 | vrushika       | netbanking   | 2000-10-18 |
+|            3 | vraj           | creditcard   | 2000-10-27 |
+|            4 | vrunda         | creditcard   | 2000-10-30 |
+|            5 | sahil          | creditcard   | 2000-10-01 |
++--------------+----------------+--------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table passenger add coloumn tax;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tax' at line 1
+mysql> alter table passenger add coloumn tax int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tax int' at line 1
+mysql> alter table passenger add column tax int;
+Query OK, 0 rows affected (2.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update passenger set tax='200' where id=1;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update passenger set tax='200' where passenger_id=1;
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update passenger set tax='500' where id=2;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update passenger set tax='500' where passenger_id=2;
+Query OK, 1 row affected (0.17 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update passenger set tax='1000' where passenger_id=3;
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update passenger set tax='700' where passenger_id=4;
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update passenger set tax='650' where passenger_id=5;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from passenger;
++--------------+----------------+--------------+------------+------+
+| passenger_id | passenger_name | payment_mode | my_date    | tax  |
++--------------+----------------+--------------+------------+------+
+|            1 | suman          | wallet       | 2000-10-13 |  200 |
+|            2 | vrushika       | netbanking   | 2000-10-18 |  500 |
+|            3 | vraj           | creditcard   | 2000-10-27 | 1000 |
+|            4 | vrunda         | creditcard   | 2000-10-30 |  700 |
+|            5 | sahil          | creditcard   | 2000-10-01 |  650 |
++--------------+----------------+--------------+------------+------+
+5 rows in set (0.00 sec)
+
+mysql> create table driver(passenger_id int,pay_ride int,driver_id int,driver_name varchar(40),my_date date);
+Query OK, 0 rows affected (1.99 sec)
+
+mysql> insert into driver values(1,800,11,'palak','2000-10-01');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into driver values(2,900,12,'rajesh','2000-10-13');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into driver values(3,700,13,'sweta','2000-10-18');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into driver values(4,600,14,'prerak','2000-10-27');
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into driver values(5,900,15,'phuds','2000-10-30');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from driver;
++--------------+----------+-----------+-------------+------------+
+| passenger_id | pay_ride | driver_id | driver_name | my_date    |
++--------------+----------+-----------+-------------+------------+
+|            1 |      800 |        11 | palak       | 2000-10-01 |
+|            2 |      900 |        12 | rajesh      | 2000-10-13 |
+|            3 |      700 |        13 | sweta       | 2000-10-18 |
+|            4 |      600 |        14 | prerak      | 2000-10-27 |
+|            5 |      900 |        15 | phuds       | 2000-10-30 |
++--------------+----------+-----------+-------------+------------+
+5 rows in set (0.05 sec)
+
+mysql> alter table driver add foreign key(passenger_id) references passenger(passenger_id);
+Query OK, 5 rows affected (4.55 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> alter table driver add foreign key(my_date) references passenger(my_date);
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'driver_ibfk_2' in the referenced table 'passenger'
+mysql> desc driver;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| passenger_id | int         | YES  | MUL | NULL    |       |
+| pay_ride     | int         | YES  |     | NULL    |       |
+| driver_id    | int         | YES  |     | NULL    |       |
+| driver_name  | varchar(40) | YES  |     | NULL    |       |
+| my_date      | date        | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.29 sec)
+
+mysql> select * from passenger;
++--------------+----------------+--------------+------------+------+
+| passenger_id | passenger_name | payment_mode | my_date    | tax  |
++--------------+----------------+--------------+------------+------+
+|            1 | suman          | wallet       | 2000-10-13 |  200 |
+|            2 | vrushika       | netbanking   | 2000-10-18 |  500 |
+|            3 | vraj           | creditcard   | 2000-10-27 | 1000 |
+|            4 | vrunda         | creditcard   | 2000-10-30 |  700 |
+|            5 | sahil          | creditcard   | 2000-10-01 |  650 |
++--------------+----------------+--------------+------------+------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(pay_ride) where my_date between '2000-10-01' and '2000-10-30';
+ERROR 1054 (42S22): Unknown column 'pay_ride' in 'field list'
+mysql> select sum(pay_ride) from driver where my_date between '2000-10-01' and '2000-10-30';
++---------------+
+| sum(pay_ride) |
++---------------+
+|          3900 |
++---------------+
+1 row in set (0.06 sec)
+
+mysql> select pay_ride from passenger where passenger_id(select passenger_id from driver where my_date between '2000-10-01' and '2000-10-30');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select passenger_id from driver where my_date between '2000-10-01' and '2000-10-' at line 1
+mysql> select sum(pay_ride) from passenger where passenger_id in(select passenger_id from driver where my_date between '2000-10-01' and '2000-10-30');
+ERROR 1054 (42S22): Unknown column 'pay_ride' in 'field list'
+mysql> select sum(pay_ride) from driver where passenger_id in(select passenger_id from passenger where my_date between '2000-10-01' and '2000-10-30');
++---------------+
+| sum(pay_ride) |
++---------------+
+|          3900 |
++---------------+
+1 row in set (0.04 sec)
+
+mysql> select sum(pay_ride) from driver where passenger_id in(select passenger_id from passenger where payment_mode='creditcard');
++---------------+
+| sum(pay_ride) |
++---------------+
+|          2200 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from passenger where tax*18/100;
++--------------+----------------+--------------+------------+------+
+| passenger_id | passenger_name | payment_mode | my_date    | tax  |
++--------------+----------------+--------------+------------+------+
+|            1 | suman          | wallet       | 2000-10-13 |  200 |
+|            2 | vrushika       | netbanking   | 2000-10-18 |  500 |
+|            3 | vraj           | creditcard   | 2000-10-27 | 1000 |
+|            4 | vrunda         | creditcard   | 2000-10-30 |  700 |
+|            5 | sahil          | creditcard   | 2000-10-01 |  650 |
++--------------+----------------+--------------+------------+------+
+5 rows in set (0.01 sec)
+
+mysql> select tax*18/100 where my_date between '2000-10-01' and '2000-10-30';
+ERROR 1054 (42S22): Unknown column 'tax' in 'field list'
+mysql> select tax*10/100 from passenger where my_date '2000-10-01' and '2000-10-30';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''2000-10-01' and '2000-10-30'' at line 1
+mysql> select tax*18/100 from passenger where my_date between '2000-10-01' and '2000-10-30';
++------------+
+| tax*18/100 |
++------------+
+|    36.0000 |
+|    90.0000 |
+|   180.0000 |
+|   126.0000 |
+|   117.0000 |
++------------+
+5 rows in set (0.00 sec)
+
+mysql> select pay_ride*18/100 from driver where my_date between '2000-10-01' and '2000-10-30';
++-----------------+
+| pay_ride*18/100 |
++-----------------+
+|        144.0000 |
+|        162.0000 |
+|        126.0000 |
+|        108.0000 |
+|        162.0000 |
++-----------------+
+5 rows in set (0.00 sec)
+
+mysql> select pay_ride-15/100 from driver where my_date between '2000-10-01' and '2000-10-30';
++-----------------+
+| pay_ride-15/100 |
++-----------------+
+|        799.8500 |
+|        899.8500 |
+|        699.8500 |
+|        599.8500 |
+|        899.8500 |
++-----------------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(pay_ride)/7 from driver where my_date between '2000-10-01' and '2000-10-30';
++-----------------+
+| sum(pay_ride)/7 |
++-----------------+
+|        557.1429 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql>
